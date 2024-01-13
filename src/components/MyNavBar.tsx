@@ -15,7 +15,7 @@ const MyNavBar = (props: Props) => {
     
       return (
         <nav className='fixed left-1/2 -translate-x-1/2 p-2'>
-          <div className='relative rounded-lg w-96 h-10 shadow-lg border-[1px] flex items-center'>
+          <div className='relative rounded-lg w-96 h-10 shadow-lg border-[1px] flex items-center bg-white'>
             <svg
                 className='w-6 h-6 absolute left-2 hover:cursor-pointer text-gray-800'
                 xmlns='http://www.w3.org/2000/svg'
@@ -38,9 +38,9 @@ const MyNavBar = (props: Props) => {
               onChange={handleInputChange}
             />
     
-            <button className=' px-1'>
+            <button className=' px-1 '>
                 <svg
-                    className="w-6 h-6 text-gray-800"
+                    className="w-6 h-6 text-gray-800 "
                     xmlns="http://www.w3.org/2000/svg" 
                     fill="none" 
                     viewBox="0 0 24 24" 

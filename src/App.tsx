@@ -78,7 +78,7 @@ function App() {
             <MyNavBar />
 
             {/* Render your Pokemon data here */}
-            <div>
+            <div className=' flex flex-wrap pt-16 justify-center'>
                 {pokemonData.map((pokemon) => (
                     <PokemonCard
                         key={pokemon.id}
