@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 
-type Props = {}
+// type Props = {}
 
-const MyNavBar = (props: Props) => {
+const MyNavBar = () => {
     const [searchValue, setSearchValue] = useState("")
 
     function handleInputChange(e:React.ChangeEvent<HTMLInputElement>){
