@@ -55,6 +55,7 @@ interface ApiResistanceWithAbilities {
 
 function App() {
     const [pokemonData, setPokemonData] = useState<Pokemon[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     async function getAllPokemon() {
         try {
@@ -63,6 +64,7 @@ function App() {
     
             // Assuming the API response is an array of Pokemon objects
             setPokemonData(response);
+            setIsLoading(false);
         } catch (error) {
             console.error('Error fetching Pokemon data:', error);
         }
@@ -77,8 +79,11 @@ function App() {
         <>
             <MyNavBar />
 
-            {/* Render your Pokemon data here */}
-            <div className=' flex flex-wrap pt-16 justify-center'>
+           {
+            isLoading && 
+                <p className=' absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-200'>Loading Data ...</p>
+           }
+            <div className=' flex flex-wrap pt-16 justify-center transition-all duration-300'>
                 {pokemonData.map((pokemon) => (
                     <PokemonCard
                         key={pokemon.id}
