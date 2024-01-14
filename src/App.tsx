@@ -57,6 +57,9 @@ function App() {
     const [pokemonData, setPokemonData] = useState<Pokemon[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
+    // Used for the search bar
+    const [searchQuery, setSearchQuery] = useState('');
+
     async function getAllPokemon() {
         try {
             const apiUrl = 'https://pokebuildapi.fr/api/v1/pokemon';
@@ -75,25 +78,31 @@ function App() {
         getAllPokemon();
     }, []);
 
+
+    const filteredPokemon = pokemonData.filter((pokemon) =>
+        pokemon.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    
     return (
         <>
-            <MyNavBar />
-
-           {
-            isLoading && 
-                <p className=' absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-200'>Loading Data ...</p>
-           }
-            <div className=' flex flex-wrap pt-16 justify-center transition-all duration-300'>
-                {pokemonData.map((pokemon) => (
-                    <PokemonCard
-                        key={pokemon.id}
-                        pokedexId={pokemon.pokedexId}
-                        name={pokemon.name}
-                        image={pokemon.image}
-                        apiTypes={pokemon.apiTypes}
-                    />
-                ))}
-            </div>
+        <MyNavBar onSearch={(query) => setSearchQuery(query)} />
+    
+        {isLoading && (
+            <p className=' absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
+            Loading Data ...
+            </p>
+        )}
+        <div className=' flex flex-wrap pt-16 justify-center'>
+            {filteredPokemon.map((pokemon) => (
+            <PokemonCard
+                key={pokemon.id}
+                pokedexId={pokemon.pokedexId}
+                name={pokemon.name}
+                image={pokemon.image}
+                apiTypes={pokemon.apiTypes}
+            />
+            ))}
+        </div>
         </>
     );
 }
