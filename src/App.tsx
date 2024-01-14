@@ -1,9 +1,10 @@
 import MyNavBar from './components/MyNavBar';
 import PokemonCard from './components/PokemonCard';
+import PokemonModal from './components/PokemonModal';
 import ky from 'ky';
 import { useEffect, useState } from 'react';
 
-interface Pokemon {
+export interface Pokemon {
     id: number;
     pokedexId: number;
     name: string;
@@ -56,6 +57,8 @@ interface ApiResistanceWithAbilities {
 function App() {
     const [pokemonData, setPokemonData] = useState<Pokemon[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null); // Get the selected pokemon for the modal
+
 
     // Used for the search bar
     const [searchQuery, setSearchQuery] = useState('');
@@ -71,6 +74,14 @@ function App() {
             getAllPokemon();
         }
     }, []);
+
+    const openModal = (pokemon: Pokemon) => {
+        setSelectedPokemon(pokemon);
+    };
+    
+    const closeModal = () => {
+        setSelectedPokemon(null);
+    };
 
     async function getAllPokemon() {
         try {
@@ -116,9 +127,13 @@ function App() {
                 name={pokemon.name}
                 image={pokemon.image}
                 apiTypes={pokemon.apiTypes}
+                onClick={() => openModal(pokemon)}
             />
             ))}
         </div>
+        {selectedPokemon && (
+            <PokemonModal pokemon={selectedPokemon} onClose={closeModal} />
+        )}
         </>
     );
 }

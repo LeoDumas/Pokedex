@@ -1,10 +1,12 @@
 import PokeTypeCard from "./PokeTypeCard";
+import { pokeIdFormatter } from "../tools/PokeIdFormatter";
 
 type Props = {
     pokedexId: number;
     name: string;
     image: string;
     apiTypes: ApiType[];
+    onClick: () => void;
 };
 
 interface ApiType {
@@ -14,21 +16,12 @@ interface ApiType {
 
 const PokemonCard = (props: Props) => {
 
-    function pokdeIdFormatter(value: number): string{
-        const valueString = value.toString();
-        // Get the number of 0 to add on the left
-        const zeroToAdd = Math.max(0,4 - valueString.length);
-        // Add the 0 
-        const formattedValue = "N°" + "0".repeat(zeroToAdd)+ valueString;
-        return formattedValue;
-    }
-
     return (
-        <div className=' bg-white border-[1px] p-5 shadow-lg m-5 w-96'>
+        <div className=' bg-white border-[1px] p-5 shadow-lg m-5 w-96' onClick={props.onClick}>
             <img data-te-lazy className=" lazyload" src={props.image} alt={"img_" + props.name} />
             
             <div>
-                <p className=' opacity-60'>{pokdeIdFormatter(props.pokedexId)}</p>
+                <p className=' opacity-60'>{pokeIdFormatter(props.pokedexId)}</p>
                 <h2 className=' text-xl'>{props.name}</h2>
             </div>
 
