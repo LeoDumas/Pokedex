@@ -60,23 +60,39 @@ function App() {
     // Used for the search bar
     const [searchQuery, setSearchQuery] = useState('');
 
+    // Load data from local storage on component mount
+    useEffect(() => {
+        const cachedData = localStorage.getItem('pokemonData');
+
+        if (cachedData) {
+            setPokemonData(JSON.parse(cachedData));
+            setIsLoading(false);
+        } else {
+            getAllPokemon();
+        }
+    }, []);
+
     async function getAllPokemon() {
         try {
             const apiUrl = 'https://pokebuildapi.fr/api/v1/pokemon';
             const response: Pokemon[] = await ky.get(apiUrl).json();
+            
+            // Save data to local storage
+            localStorage.setItem('pokemonData', JSON.stringify(response));
     
-            // Assuming the API response is an array of Pokemon objects
-            setPokemonData(response);
-            setIsLoading(false);
+            // Check if the data is successfully saved
+            const isDataSaved = localStorage.getItem('pokemonData') !== null;
+    
+            if (isDataSaved) {
+                setPokemonData(response);
+                setIsLoading(false);
+            } else {
+                console.error('Error saving data to local storage.');
+            }
         } catch (error) {
             console.error('Error fetching Pokemon data:', error);
         }
     }
-    
-
-    useEffect(() => {
-        getAllPokemon();
-    }, []);
 
 
     const filteredPokemon = pokemonData.filter((pokemon) =>

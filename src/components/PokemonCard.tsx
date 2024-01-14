@@ -25,7 +25,7 @@ const PokemonCard = (props: Props) => {
 
     return (
         <div className=' bg-white border-[1px] p-5 shadow-lg m-5 w-96'>
-            <img src={props.image} alt={"img_" + props.name} />
+            <img data-te-lazy className=" lazyload" src={props.image} alt={"img_" + props.name} />
             
             <div>
                 <p className=' opacity-60'>{pokdeIdFormatter(props.pokedexId)}</p>
@@ -35,7 +35,7 @@ const PokemonCard = (props: Props) => {
             <div>
                 <ul className=" flex justify-start mt-5">
                     {props.apiTypes.map((type, index) => (
-                        <PokeTypeCard typeName={type.name} image={type.image} keyIndex={index}/>
+                        <PokeTypeCard typeName={type.name} image={type.image} keyIndex={index} key={index}/>
                     ))}
                 </ul>
             </div>
