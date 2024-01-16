@@ -15,8 +15,8 @@ export interface Pokemon {
         HP: number;
         attack: number;
         defense: number;
-        specialAttack: number;
-        specialDefense: number;
+        special_attack: number;
+        special_defense: number;
         speed: number;
     };
     apiTypes: ApiType[];
