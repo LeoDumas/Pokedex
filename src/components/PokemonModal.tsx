@@ -2,6 +2,7 @@ import React from 'react';
 import { Pokemon } from '../App';
 import { pokeIdFormatter } from '../tools/PokeIdFormatter';
 import PokeTypeCard from './PokeTypeCard';
+import PokeTypeCard2 from './PokeTypeCard2';
 import StatsBar from './StatsBar';
 
 interface PokemonModalProps {
@@ -40,11 +41,23 @@ const PokemonModal: React.FC<PokemonModalProps> = ({ pokemon, onClose }) => {
                     </ul>
 
                     {/* ToDo : For Weakness and resistance, check for damage_relation in apiResistances */}
-                    <h2 className=' mt-5 text-xl font-semibold'>Weakness</h2>
-                    <ul className=" flex justify-start mt-1">
-                        {pokemon.apiTypes.map((type, index) => (
-                            <PokeTypeCard typeName={type.name} image={type.image} keyIndex={index} key={index}/>
-                        ))}
+                    <h2 className='mt-5 text-xl font-semibold'>Weakness</h2>
+                    <ul className="flex flex-wrap justify-start mt-1">
+                        {pokemon.apiResistances
+                            .filter(type => type.damage_multiplier < 1)
+                            .map((type, index) => (
+                                <PokeTypeCard2 name={type.name} damage_multiplier={type.damage_multiplier} damage_relation={type.damage_relation} keyIndex={index} />
+                            ))}
+                    </ul>
+
+                    {/* Ressistance */}
+                    <h2 className='mt-5 text-xl font-semibold'>Weakness</h2>
+                    <ul className="flex flex-wrap justify-start mt-1">
+                        {pokemon.apiResistances
+                            .filter(type => type.damage_multiplier > 1)
+                            .map((type, index) => (
+                                <PokeTypeCard2 name={type.name} damage_multiplier={type.damage_multiplier} damage_relation={type.damage_relation} keyIndex={index} />
+                            ))}
                     </ul>
                     
                 </div>

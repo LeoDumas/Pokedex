@@ -34,8 +34,8 @@ interface ApiType {
 
 interface ApiResistance {
     name: string;
-    damageMultiplier: number;
-    damageRelation: string;
+    damage_multiplier: number;
+    damage_relation: string;
 }
 
 interface ApiEvolution {
@@ -50,8 +50,8 @@ interface ApiPreEvolution {
 
 interface ApiResistanceWithAbilities {
     type: string;
-    damageMultiplier: number;
-    damageRelation: string;
+    damage_multiplier: number;
+    damage_relation: string;
 }
 
 function App() {
